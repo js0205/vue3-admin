@@ -49,6 +49,7 @@ import { ref, reactive } from "vue";
 import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router";
 import { login } from "~/api/manager";
+import { useCookies } from "@vueuse/integrations/useCookies";
 
 const router = useRouter();
 // do not use same name with ref
@@ -88,7 +89,8 @@ const onSubmit = () => {
           duration: 1000,
         });
         //存储token和用户相关信息
-
+        const cookie = useCookies();
+        cookie.set("admin-token", res.data.data.token);
         //跳转到后台首页
         router.push("/");
       })
